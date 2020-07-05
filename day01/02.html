@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+</div>
+<script>
+    let data = {a: 1};
+    let app = new Vue({
+        el: '#app'
+        , data: data
+    })
+
+    console.log(app.a === data.a);
+
+    app.a = 333;
+    console.log(data.a);
+
+    data.a = 2;
+    console.log(app.a);
+
+</script>
+</body>
+</html>
