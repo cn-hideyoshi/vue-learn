@@ -15,13 +15,40 @@
         , data: data
     })
 
+    //true
     console.log(app.a === data.a);
 
+    //333
     app.a = 333;
     console.log(data.a);
 
+    //2
     data.a = 2;
     console.log(app.a);
+
+    //不会同时修改 vue实实例里的
+    app.b = 'hi'
+
+
+</script>
+
+<div id="app-1">
+    <p>{{ foo }}</p>
+    <button v-on:click="foo = 'baz'">change</button>
+</div>
+<script>
+
+    let obj = {
+        foo: 'bar'
+    };
+
+    //Object.freeze() => 冻结对象：其他代码不能删除或更改任何属性。
+    Object.freeze(obj);
+    new Vue({
+        el: '#app-1'
+        , data: obj
+    })
+    
 
 </script>
 </body>
