@@ -1,22 +1,29 @@
 <template>
     <div id="app">
-        <img alt="Vue logo" src="./assets/logo.png">
-        <HelloWorld msg="Welcome to Your Vue.js App"/>
-        <div ></div>
+        <a v-bind:[attributeName]="url"> ... </a>
+        <a v-bind:[attrName]="url">dynamic (attr & attr value)</a>
+        <div v-on:[actionName]="click">dynamic (attr & attr value)</div>
+        <div>{{url}}</div>
     </div>
 </template>
 
 <script>
-    import HelloWorld from './components/HelloWorld.vue'
-
     export default {
-        name: 'App',
-        components: {
-            HelloWorld
+        name: 'App'
+        , data() {
+            return {
+                attrName: 'href'
+                , attributeName: 'href'
+                , url: '//baidu.com'
+                , actionName: 'click'
+            };
         }
-        , props: {
-            url: 'baidu.com'
+        , methods: {
+            click: () => {
+                console.log(1);
+            }
         }
+        , props: {}
     }
 </script>
 

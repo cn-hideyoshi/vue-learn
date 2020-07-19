@@ -67,6 +67,7 @@
 </script>
 
 
+<!--require js can not use this-->
 <div id="app-4">
     <a v-bind:[attributeName]="url"> ... </a>
     <a v-bind:[attrName]="url">dynamic (attr & attr value)</a>
@@ -77,21 +78,39 @@
     let app4 = new Vue({
         el: '#app-4'
         , data: {
-            attrName: 'href1'
-            // , attributeName: 'href'
-            , url: 'baidu.com'
-            , actionName: 'focus'
+            attrName: 'href'
+            , attributeName: 'href'
+            , url: '//baidu.com'
+            , actionName: 'click'
         }
         , methods: {
             click: () => {
                 console.log(1);
-            },
-            attributename: function () {
-                return 'class';
             }
         }
     });
 </script>
+
+<!--shorthands-->
+<div id="app-5">
+    <a :href="url">{{url}}</a>
+    <div @click="jump">{{url}}</div>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app-5'
+        , data: {
+            url: '//baidu.com'
+        }
+        , methods: {
+            jump() {
+                window.open('//baidu.com');
+            },
+        }
+
+    })
+</script>
+
 
 </body>
 </html>

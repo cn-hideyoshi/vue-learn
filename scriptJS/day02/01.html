@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--computed-->
+<div id="app">
+    <p>origin message:{{ message }}</p>
+    <p>computed reversed message:{{ reversedMessage }}</p>
+</div>
+<script>
+    new Vue({
+        el: '#app'
+        , data: {
+            message: " message "
+        }
+        , methods: {}
+        , computed: {
+            reversedMessage() {
+                return this.message.split('').reverse().join('');
+            }
+        }
+    })
+</script>
+
+
+<!--Computed Caching vs Methods-->
+<div id="app-2">
+    <p>message reversed method : {{ reversedMethod() }}</p>
+    <p>reversed computed : {{ reversedComputed }}</p>
+</div>
+<script>
+    new Vue({
+        el: '#app-2'
+        , data: {
+            message: 'message',
+            reversedMessage: '',
+        }
+        , methods: {
+            reversedMethod() {
+                // can do this many times
+                return this.message.split('').reverse().join('');
+            }
+        }
+        , computed: {
+            reversedComputed() {
+                // only once
+                return this.message.split('').reverse().join('');
+            }
+        }
+    })
+</script>
+
+
+<!--watch-->
+<script src="https://cdn.jsdelivr.net/npm/axios@0.12.0/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.13.1/lodash.min.js"></script>
+<div id="app-3">
+    <p>
+        Ask a yes/no question
+        <input type="text" v-model="question">
+    </p>
+    <p>{{answer}}</p>
+</div>
+<script>
+    let app3 = new Vue({
+        el: '#app-3'
+        , data: {
+            question: '',
+            answer: 'I cannot give an answer until you ask a question!'
+        }
+        , watch: {
+            // 如果 `question` 发生改变，这个函数就会运行
+            question(newQuestion, oldQuestion) {
+                this.answer = 'Waiting for you to top trying'
+                this.debouncedGetAnswer();
+            }
+        }
+        , created() {
+            // `_.debounce` 是一个通过 Lodash 限制操作频率的函数。
+            // 在这个例子中，我们希望限制访问 yesno.wtf/api 的频率
+            // AJAX 请求直到用户输入完毕才会发出。想要了解更多关于
+            // `_.debounce` 函数 (及其近亲 `_.throttle`) 的知识，
+            // 请参考：https://lodash.com/docs#debounce
+            this.debouncedGetAnswer = _.debounce(this.getAnswer, 500)
+        }
+        , methods: {
+            getAnswer() {
+                if (this.question.indexOf('?') === -1) {
+                    this.answer = 'Question usually contain a question mark.  ;) '
+                    return
+                }
+                this.answer = "Thinking ...";
+                let vm = this
+                axios.get('http://yesno.wtf/api')
+                    .then((res) => {
+                        vm.answer = _.capitalize(res.data.answer);
+                    })
+                    .catch((error) => {
+                        vm.answer = 'Error! Could not reach the api. ' + error
+                    })
+            }
+        }
+    })
+</script>
+
+<!--Computed vs Watched Property-->
+<div id="app-4">
+    <div>
+        {{ fullNameWatch }}
+    </div>
+    <div>
+        {{ fullNameComputed }}
+    </div>
+</div>
+<script>
+    let app4 = new Vue({
+        el: '#app-4'
+        , data: {
+            firstName: 'hide'
+            , lastName: 'yoshi'
+            , fullNameWatch: ''
+        }
+        , watch: {
+            firstName(val) {
+                this.fullNameWatch = val + " " + this.lastName
+            }
+            , lastName(val) {
+                this.fullNameWatch = this.firstName + " " + val
+            }
+        }
+        , computed: {
+            fullNameComputed() {
+                return this.firstName + " " + this.lastName
+            }
+        }
+    })
+</script>
+
+
+<!--computed set & get-->
+<div id="app-5">
+    <p>{{message}}</p>
+</div>
+<script>
+    let app5 = new Vue({
+        el: '#app-5'
+        , data: {
+            messageData: 'message',
+        }
+        , computed: {
+            message: {
+                set(value) {
+                    this.messageData = value.split('').reverse().join('');
+                }
+                , get() {
+                    return this.messageData;
+                }
+            }
+        }
+    })
+</script>
+
+</body>
+</html>
