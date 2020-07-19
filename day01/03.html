@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+    <div>Message : {{ msg }}</div>
+    <div v-once> no change message : {{ msg }}</div>
+</div>
+<script>
+    let app = new Vue({
+        el: '#app'
+        , data: {
+            msg: 'no message!!'
+        }
+    })
+    app.msg = 'message changed';
+</script>
+
+<div id="app-1">
+    <div>using mustaches : {{ rawHtml }}</div>
+    <div>using v-html directive : <span v-html="rawHtml"></span></div>
+</div>
+<script>
+    let app1 = new Vue({
+        el: '#app-1'
+        , data: {
+            rawHtml: '<p>v-html</p>'
+        }
+    });
+</script>
+
+<div id="app-2">
+    <div :id="dynamicId"></div>
+    <button :disabled="isDisabled"> button</button>
+</div>
+<script>
+    let app2 = new Vue({
+        el: '#app-2'
+        , data: {
+            dynamicId: 'ID'
+            , isDisabled: true
+        }
+    });
+</script>
+
+<div id="app-3">
+    <div>{{ number + 1 }}</div>
+    <div>{{ ok ? 'Yes' : 'No' }}</div>
+    <div>{{ message.split('').reverse().join('') }}</div>
+    <div :id="'list' + id"></div>
+</div>
+
+<script>
+    let app3 = new Vue({
+        el: '#app-3'
+        , data: {
+            number: 333
+            , ok: true
+            , message: ' dlrow '
+            , id: 2333,
+        }
+    })
+</script>
+
+
+<div id="app-4">
+    <a v-bind:[attributeName]="url"> ... </a>
+    <a v-bind:[attrName]="url">dynamic (attr & attr value)</a>
+    <div v-on:[actionName]="click">dynamic (attr & attr value)</div>
+    <div>{{url}}</div>
+</div>
+<script>
+    let app4 = new Vue({
+        el: '#app-4'
+        , data: {
+            attrName: 'href1'
+            // , attributeName: 'href'
+            , url: 'baidu.com'
+            , actionName: 'focus'
+        }
+        , methods: {
+            click: () => {
+                console.log(1);
+            },
+            attributename: function () {
+                return 'class';
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

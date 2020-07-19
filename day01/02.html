@@ -48,8 +48,27 @@
         el: '#app-1'
         , data: obj
     })
-    
-
 </script>
+
+<div id="app-2"></div>
+<script>
+    let app2 = new Vue({
+        data: {a: 1}
+        // can not use this
+        // , created: ()=> {
+        //     console.log('a is:' + this.a);
+        // }
+        , created: function () {
+            console.log('a is:' + this.a);
+        }
+        , mounted: () => {
+        }
+        , updated: () => {
+        }
+        , destroyed: () => {
+        }
+    })
+</script>
+
 </body>
 </html>
