@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<!--if-->
+<div id="app-1">
+    <p v-if="awesome">Vue is awesome!</p>
+    <p v-else>Oh no 😢</p>
+</div>
+<script>
+    new Vue({
+        el: "#app-1"
+        , data: {
+            awesome: false
+        }
+    })
+</script>
+
+<!--template if-->
+<div id="app-2">
+    <template v-if="ok">
+        <h1>Title</h1>
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+    </template>
+    <template v-else>
+        <p>no</p>
+    </template>
+</div>
+<script>
+    new Vue({
+        el: '#app-2'
+        , data: {ok: false}
+    })
+</script>
+
+<div id="app-3">
+    <div v-if="Math.random() > 0.5">
+        Now you see me
+    </div>
+    <div v-else>
+        Now you don't
+    </div>
+</div>
+<script>
+    new Vue({
+        el: "#app-3"
+        , data: {}
+    })
+</script>
+</body>
+</html>

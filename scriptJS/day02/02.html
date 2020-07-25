@@ -83,5 +83,27 @@
     })
 </script>
 
+<!--also can use to style-->
+<div id="app-5">
+    <div :style="{ color: activeColor , fontSize: fontSize +'px',transition:'all 1s' }"></div>
+    <div :style="{ display: ['-webkit-box', '-ms-flexbox', 'flex'] }"></div>
+    <div :style="styleObject"></div>
+    <div :style="[baseStyles, overridingStyles]"></div>
+</div>
+<script>
+    new Vue({
+        el: '#app-5'
+        , data: {
+            fontSize: 10
+            , activeColor: 'red'
+            , styleObject: {
+                fontSize: '10px'
+                , color: 'red'
+            }
+            , baseStyles: {fontSize: '10px', transition: 'all 1s'}
+            , overridingStyles: {color: 'red'},
+        }
+    })
+</script>
 </body>
 </html>
