@@ -52,5 +52,51 @@
         , data: {}
     })
 </script>
+
+<div id="app-4">
+    <div v-if="type === 'A'">
+        A
+    </div>
+    <div v-else-if="type === 'B'">
+        B
+    </div>
+    <div v-else-if="type === 'C'">
+        C
+    </div>
+    <div v-else>
+        Not A/B/C
+    </div>
+</div>
+<script>
+    new Vue({
+        el: "#app-4"
+        , data: {
+            type: "!"
+        }
+    })
+</script>
+
+<div id="app-5">
+    <template v-if="loginType === 'username'">
+        <label>Username</label>
+        <input placeholder="Enter your username">
+    </template>
+    <template v-else>
+        <label>Email</label>
+        <input placeholder="Enter your email address">
+    </template>
+    <!--不支持 template 频繁切换显示隐藏建议使用show-->
+    <h1 v-show="ok">Hello!</h1>
+</div>
+<script>
+    new Vue({
+        el: '#app-5'
+        , data: {
+            loginType: 'username'
+            , ok: true
+        }
+    })
+</script>
+
 </body>
 </html>
