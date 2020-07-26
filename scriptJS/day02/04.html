@@ -6,6 +6,16 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
+<style>
+    * {
+        /*margin: 0;*/
+        /*padding: 0;*/
+    }
+
+    ul, li {
+        list-style: none;
+    }
+</style>
 
 <div id="app-1">
     <ul>
@@ -45,6 +55,106 @@
                 , {message: 2}
             ]
         }
+    })
+</script>
+
+<div id="app-3">
+    <ul>
+        <li v-for="(value,name) in obj">{{name}} : {{value}}</li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: "#app-3"
+        , data: {
+            obj: {
+                title: 'how to do lists in vue'
+                , author: 'jane doe'
+                , publishedAt: '1015-12-01'
+            }
+        }
+    })
+</script>
+
+<!--It is recommended to provide a key attribute with v-for whenever possible-->
+<div id="app-4">
+    <div v-for=" item in items " :key="item.id">
+        {{ item.msg }}
+    </div>
+</div>
+<script>
+    new Vue({
+        el: '#app-4'
+        , data: {
+            items: [
+                {id: 1, msg: 1}
+                , {id: 2, msg: 1}
+                , {id: 3, msg: 1}
+            ]
+        }
+    })
+</script>
+
+<div id="app-5">
+    <ul>
+        <li v-for=" item in items ">
+            {{ item.message }}
+        </li>
+    </ul>
+</div>
+<script>
+    let app5 = new Vue({
+        el: "#app-5"
+        , data: {
+            items: [
+                {message: "1"}
+                , {message: "2"}
+                , {message: "4"}
+                , {message: "4"}
+            ]
+        }
+    })
+
+    // push() pop() shift() unshift() splice() sort() reverse()
+    app5.items.push({message: "5"})
+    //filter() concat() slice()
+    app5.items = app5.items.filter((item) => {
+        return item.message.match(/1/);
+    })
+</script>
+
+<!--displaying filtered or sorted result-->
+<div id="app-6">
+    <ul>
+        <li v-for="n in evenNumbers">{{n}}</li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el: "#app-6"
+        , data: {
+            numbers: [3, 5, 6, 1, 3, 7, 9, 1, 4, 6, 9, 8, 7, 6678, 3344, 41, 42]
+        }
+        , computed: {
+            evenNumbers() {
+                return this.numbers.filter((number) => {
+                    return number % 2 === 0;
+                });
+            }
+        }
+    })
+</script>
+
+<div id="app-7">
+    <ul>
+        <li v-for=" n in 10 ">
+            {{n}}
+        </li>
+    </ul>
+</div>
+<script>
+    new Vue({
+        el:"#app-7"
     })
 </script>
 </body>
