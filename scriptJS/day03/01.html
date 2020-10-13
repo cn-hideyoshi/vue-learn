@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+
+<!--component:child data => father -->
+<div id="app">
+    input:{{value}}
+    <my-component :test="message" @get-test-value="changeInput"></my-component>
+</div>
+<script>
+    const component001 = Vue.component('my-component', {
+        template: '<div>' +
+            '<h1>{{test}}</h1>' +
+            '<input type="text" @input="handleInput">' +
+            '</div>'
+        , props: ['test']
+        , methods: {
+            handleInput(e) {
+                const val = e.target.value;
+                // $emit do method
+                this.$emit('get-test-value', val);
+            }
+        }
+    });
+
+    new Vue({
+        el: '#app'
+        , data: {
+            message: " message "
+            , value: ''
+        }
+        , component: {
+            component001
+        }
+        , methods: {
+            changeInput(newVal) {
+                console.log(newVal);
+                this.value = newVal;
+            }
+        }
+    })
+</script>
+
+<!--data component => component-->
+<div id="app2">
+    <component002></component002>
+    <component003></component003>
+</div>
+<script>
+
+    const bus = new Vue();
+    const component002 = Vue.component('component002', {
+        template: '<div>' +
+            '<h1>{{count}}</h1>' +
+            '</div>'
+        , data() {
+            return {count: 0}
+        }
+        , props: ['test']
+        , methods: {}
+        , created() {
+            // $on bind method
+            bus.$on('add', (n) => {
+                this.count += n;
+            });
+        }
+    });
+    const component003 = Vue.component('component003', {
+        template: '<div>' +
+            '<button @click="addCount">click this , add count</button>' +
+            '</div>'
+        , props: ['test']
+        , methods: {
+            addCount(e) {
+                bus.$emit('add', 1);
+            }
+        }
+    });
+    new Vue({
+        el: "#app2"
+        , data: {}
+        , component: {
+            component002,
+            component003,
+        }
+        , methods: {}
+    })
+</script>
+
+<div id="app3">
+
+</div>
+</body>
+</html>

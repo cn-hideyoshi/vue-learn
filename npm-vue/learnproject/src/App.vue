@@ -4,19 +4,26 @@
         <a v-bind:[attrName]="url">dynamic (attr & attr value)</a>
         <div v-on:[actionName]="click">dynamic (attr & attr value)</div>
         <div>{{url}}</div>
+        <test :child="msg"></test>
     </div>
 </template>
 
 <script>
+    import test from "@/components/Test";
+
     export default {
         name: 'App'
         , data() {
             return {
                 attrName: 'href'
                 , attributeName: 'href'
-                , url: '//baidu.com'
+                , url: 'https://www.baidu.com/'
                 , actionName: 'click'
+                , msg: "hello"
             };
+        }
+        , components: {
+            test
         }
         , methods: {
             click: () => {
