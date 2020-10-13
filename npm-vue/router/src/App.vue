@@ -8,6 +8,14 @@
             <router-link to="/user">User</router-link>
             |
             <router-link to="/user-admin">User-admin</router-link>
+            |
+            <router-link to="/user/1/profile">User/profile</router-link>
+            |
+            <router-link to="/user/1/posts">User/posts</router-link>
+            |
+            <router-link to="/node">Node</router-link>
+
+
             <br>
             <!--name change-->
             <router-link :to="{name:'Home'}">Home</router-link>
@@ -17,9 +25,18 @@
             <router-link :to="{name:'User',params:{id:1}}">User</router-link>
             |
             <router-link :to="{name:'Page',query:{id:1,title:'foo'}}">Page</router-link>
+            |
+            <router-link :to="{name:'Edit'}">Edit</router-link>
+            |
+            <router-link :to="{name:'Blog'}">Blog</router-link>
+            |
+            <router-link :to="{name:'Post'}">Post</router-link>
         </div>
         <!--router-view-->
+        <!--default home-->
         <router-view/>
+        <router-view name="main"/>
+        <router-view name="sidebar"/>
     </div>
 </template>
 

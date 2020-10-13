@@ -12,9 +12,14 @@ const routes = [
     , {
         path: '/home',
         name: 'Home',
-        component: Home,
+        // component: Home,
+        components: {
+            default: Home,
+            main: () => import('@/views/Main'),
+            sidebar: () => import('@/views/Sidebar')
+        },
         //rename url
-        alias: '/aaa'
+        alias: '/aaa',
     }
     , {
         path: '/about',
@@ -24,7 +29,21 @@ const routes = [
     , {
         path: '/user/:id',
         name: 'User',
-        component: () => import('@/views/User')
+        component: () => import('@/views/User'),
+        // props:true,
+        props: (router) => ({
+            id: router.params.id
+        }),
+        children: [
+            {
+                path: 'profile',
+                component: () => import('@/views/Profile')
+            }
+            , {
+                path: 'Posts',
+                component: () => import('@/views/Posts')
+            }
+        ]
     }
     , {
         path: '/user-*',
@@ -34,6 +53,37 @@ const routes = [
         path: '/page',
         name: 'Page',
         component: () => import('@/views/Page')
+    }
+    , {
+        path: '/node',
+        name: 'Node',
+        component: () => import('@/views/Node'),
+        meta: {
+            requireAuth: true,
+        }
+    }
+    , {
+        path: '/login',
+        name: 'Login',
+        component: () => import('@/views/Login')
+    }
+    , {
+        path: '/edit',
+        name: 'Edit',
+        component: () => import('@/views/Edit')
+    }
+    , {
+        path: '/blog',
+        name: 'Blog',
+        component: () => import('@/views/Blog'),
+        meta: {
+            requireAuth: true,
+        }
+    }
+    , {
+        path: '/post',
+        name: 'Post',
+        component: () => import('@/views/Post')
     }
     , {
         path: '*',
