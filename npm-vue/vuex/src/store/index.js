@@ -2,10 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import cart from './modules/cart'
 import products from './modules/products'
+import createLogger from "vuex/dist/logger";
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
+    plugins: [createLogger()]
+    , state: {
         count: 0,
         userName: 'Your Name'
     }

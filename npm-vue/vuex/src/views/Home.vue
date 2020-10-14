@@ -11,9 +11,9 @@
         <button @click="incCount">+1</button>
         <button @click="incCountAsync">Async +1</button>
         <hr>
-        <CartList></CartList>
-        <hr>
         <ProductList></ProductList>
+        <hr>
+        <CartList></CartList>
     </div>
 </template>
 

@@ -9,6 +9,10 @@ export default {
     , mutations: {
         getAllProduct(state, results) {
             state.products = results;
+        },
+        decProductInventory(state, {id}) {
+            let product = state.products.find(item => item.id === id)
+            product.inventory--;
         }
     }
     , actions: {
@@ -20,7 +24,7 @@ export default {
             } catch (e) {
                 console.error(e);
             }
-        }
+        },
     }
 
 }

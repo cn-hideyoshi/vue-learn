@@ -7,6 +7,7 @@
             <li v-for=" (product) in products" :key="product.id">
                 <!--currency => main.js-->
                 {{product.title}} - {{product.price | currency}}
+                <button :disabled="!product.inventory" @click="addToCart(product)">addToCart</button>
             </li>
         </ul>
     </div>
@@ -22,6 +23,9 @@
         }
         , created() {
             this.$store.dispatch('products/getAllProduct')
+        }
+        , methods: {
+            ...mapActions('cart', ['addToCart'])
         }
     }
 </script>
